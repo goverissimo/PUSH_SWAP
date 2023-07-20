@@ -62,6 +62,53 @@ void	pb(Node *stack_a, Node *stack_b)
 		stack_a = remove_at_head(stack_a);
 	}
 }
+void push_swap(Node **stack_a, Node **stack_b)
+{
+if (recursive_length(*stack_a) <= 1)
+return;
+
+// Choose a pivot. In a simple implementation, we can just use the head of the stack.
+int pivot = (*stack_a)->value;
+
+// Partition the elements around the pivot.
+Node *current = *stack_a;
+while (current != NULL)
+{
+if (current->value < pivot)
+{
+pb(stack_a, stack_b);  // Push smaller elements to stack B.
+}
+else
+{
+ra(stack_a);  // Rotate stack A.
+}
+current = current->next;
+}
+
+// Now, smaller elements are in stack B, and larger elements are in stack A.
+
+// Sort stack B (smaller elements) by moving them back to stack A.
+while (*stack_b != NULL)
+{
+pa(stack_a, stack_b);  // Pop from stack B and push to stack A.
+}
+
+// Recursively sort the remaining elements in stack A.
+push_swap(stack_a, stack_b);
+}
+
+int main()
+{
+    // Initialize your stacks, stack_a and stack_b.
+
+    // Call the push_swap function.
+    push_swap(&stack_a, &stack_b);
+
+    // Print the result.
+    print_list(stack_a);
+
+    return 0;
+}
 
 /*
 int main(void)

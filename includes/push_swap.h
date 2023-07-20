@@ -29,5 +29,6 @@ Node *insert_at_head(Node *head, int new_value);
 Node *remove_at_head(Node *head);
 Node *insert_at_tail(Node *head, int new_value);
 Node *delete_at_tail(Node *head);
+void push_swap(Node **stack_a, Node **stack_b);
 
 #endif /* ALLOWED_FUNCTIONS_H */
