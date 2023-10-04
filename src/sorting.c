@@ -6,38 +6,52 @@
 /*   By: gverissi <gverissi@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 15:20:33 by gverissi          #+#    #+#             */
-/*   Updated: 2023/09/27 16:13:42 by gverissi         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:58:57 by gverissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+char	**initialize_args(int argc, char **argv, int *should_free_args, int *i)
+{
+	char	**args;
+
+	if (argc == 2)
+	{
+		args = ft_split(argv[1], ' ');
+		*should_free_args = 1;
+		*i = 0;
+	}
+	else
+	{
+		args = argv;
+		*i = 1;
+	}
+	return (args);
+}
+
 void	ft_check_args(int argc, char **argv)
 {
 	int		i;
 	long	tmp;
-	char	**args;	
+	char	**args;
+	int		should_free_args;
 
-	i = 0;
-	if (argc == 2)
-		args = ft_split(argv[1], ' ');
-	else
-	{
-		i = 1;
-		args = argv;
-	}
+	should_free_args = 0;
+	args = initialize_args(argc, argv, &should_free_args, &i);
 	while (args[i])
 	{
 		tmp = ft_atoi(args[i]);
-		if (!ft_isnum(args[i]))
+		if (!ft_isnum(args[i]) || ft_contains(tmp, args, i) || \
+		tmp < INT_MIN || tmp > INT_MAX)
+		{
+			if (should_free_args) 
+				ft_free_list(args);
 			ft_error("Error");
-		if (ft_contains(tmp, args, i))
-			ft_error("Error");
-		if (tmp < INT_MIN || tmp > INT_MAX)
-			ft_error("Error");
+		}
 		i++;
 	}
-	if (argc == 2)
+	if (should_free_args)
 		ft_free_list(args);
 }
 
@@ -68,14 +82,6 @@ void	simple_sort(t_node_list **stack_a, t_node_list **stack_b)
 		sort_4(stack_a, stack_b);
 	else if (size == 5)
 		sort_5(stack_a, stack_b);
-}
-
-int	ra(t_node_list **stack_a)
-{
-	if (rotate(stack_a) == -1)
-		return (-1);
-	ft_putendl_fd("ra", 1);
-	return (0);
 }
 
 void	radix_sort(t_node_list **stack_a, t_node_list **stack_b)

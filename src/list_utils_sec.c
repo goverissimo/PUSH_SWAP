@@ -6,7 +6,7 @@
 /*   By: gverissi <gverissi@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:20:35 by gverissi          #+#    #+#             */
-/*   Updated: 2023/09/27 11:32:18 by gverissi         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:45:18 by gverissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,13 @@
 void	ft_free_stack(t_node_list **stack)
 {
 	t_node_list	*head;
-	t_node_list	*tmp;
 
-	head = *stack;
-	while (head)
+	while (*stack)
 	{
-		tmp = head;
-		head = head->next;
-		free(tmp);
+		head = (*stack)->next;
+		free(*stack);
+		*stack = head;
 	}
-	free(stack);
 }
 
 void	make_index(t_node_list **node_list)
@@ -69,7 +66,10 @@ void	ft_init_stack(t_node_list **stack, int argc, char **argv)
 	while (args[i])
 	{
 		new = ft_newlist(ft_atoi(args[i]));
-		ft_add_back(stack, new);
+		if (!new)
+			ft_free_stack(&new);
+		else
+			ft_add_back(stack, new);
 		i++;
 	}
 	make_index(stack);

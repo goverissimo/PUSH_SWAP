@@ -6,7 +6,7 @@
 /*   By: gverissi <gverissi@student.42.com>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/23 14:29:46 by gverissi          #+#    #+#             */
-/*   Updated: 2023/09/27 14:00:59 by gverissi         ###   ########.fr       */
+/*   Updated: 2023/10/04 18:47:10 by gverissi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_free_list(char **str)
 		i++;
 	while (i >= 0)
 		free(str[i--]);
+	free(str);
 }
 
 int	is_sorted(t_node_list **stack)

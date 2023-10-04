@@ -36,7 +36,7 @@ int			is_sorted(t_node_list **stack);
 /*LIST_UTILS*/
 t_node_list	*ft_newlist(int value_to_add);
 void		ft_add_front(t_node_list **stack, t_node_list *new);
-void		ft_add_back(t_node_list **stack, t_node_list *value);
+void		ft_add_back(t_node_list **stack, t_node_list *new);
 int			list_size(t_node_list *head);
 
 /*LIST_UTILS_SEC*/

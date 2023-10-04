@@ -16,7 +16,7 @@ t_node_list	*ft_newlist(int value_to_add)
 {
 	t_node_list	*new;
 
-	new = malloc(sizeof(*new));
+	new = malloc(sizeof(t_node_list));
 	if (!new)
 		return (NULL);
 	new->value = value_to_add;
